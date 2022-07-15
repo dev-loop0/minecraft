@@ -1,0 +1,13 @@
+#include "world.hpp"
+
+namespace minecraft {
+
+World::World() {
+
+}
+
+void World::generate(int x, int z) {
+    this->chunks[std::pair(x, z)] = Chunk({0});
+}
+
+}

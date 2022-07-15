@@ -1,0 +1,29 @@
+#ifndef _WORLD_HPP_
+#define _WORLD_HPP_
+
+#include <glad/glad.h>
+
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <vector>
+#include <map>
+#include <utility>
+
+#include "chunk.hpp"
+
+namespace minecraft {
+
+class World {
+    public:
+    World();
+
+    void generate(int x, int z);
+
+    private:
+    std::map<std::pair<int, int>, Chunk> chunks;
+};
+
+}
+
+#endif

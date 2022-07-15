@@ -1,0 +1,11 @@
+#ifndef _NOISE_HPP_
+#define _NOISE_HPP_
+
+#include <random>
+#include <cstdlib>
+
+class PerlinNoiseGenerator {
+    
+};
+
+#endif

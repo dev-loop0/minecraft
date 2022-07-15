@@ -1,0 +1,8 @@
+#include <random>
+#include <cstdlib>
+
+class PerlinNoiseGenerator {
+    PerlinNoiseGenerator() {
+        
+    }
+};
