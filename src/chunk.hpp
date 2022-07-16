@@ -9,11 +9,13 @@ namespace minecraft {
 
 class Chunk {
     public:
-    using chunk_data_t = std::array<std::array<std::array<int, 256>, 16>, 16>;
-    // x then z then y
+    // array indexing: x then z then y
+    using chunk_data_t = std::array<std::array<std::array<BlockType, 256>, 16>, 16>;
+    
     Chunk();
-    chunk_data_t& get_data();
-    void set_block(int x, int y, int z);
+
+    const chunk_data_t& get_data();
+    void set_block(int x, int y, int z, BlockType type);
 
     private:
     chunk_data_t data;

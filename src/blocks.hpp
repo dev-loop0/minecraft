@@ -20,10 +20,11 @@
 
 namespace minecraft {
 
-enum class BlockType : uint8_t {
+enum class BlockType : uint32_t {
+    AIR,
     GRASS_BLOCK,
     DIRT
-}
+};
 
 }
 
