@@ -1,9 +1,0 @@
-#include "chunk.hpp"
-
-namespace minecraft {
-
-Chunk::Chunk(std::array<std::array<std::array<int, 256>, 16>, 16>&& data) {
-    this->data = data;
-}
-
-}

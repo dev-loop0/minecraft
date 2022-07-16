@@ -18,10 +18,14 @@ class World {
     public:
     World();
 
+    void make_vertices();
+
     void generate(int x, int z);
 
     private:
     std::map<std::pair<int, int>, Chunk> chunks;
+    std::vector<float> vertices;
+    std::vector<unsigned int> indices;
 };
 
 }

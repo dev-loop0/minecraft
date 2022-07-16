@@ -14,6 +14,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <functional>
 
 #include "utils/utils.hpp"
 #include "shader.hpp"
@@ -162,6 +163,15 @@ int main(int argc, char** argv){
     minecraft::Texture terrain("assets/textures/terrain.png");
 
     minecraft::Player player;
+    
+    glfwSetWindowUserPointer(window, &player);
+    
+    // hack for passing member func
+    auto _mouse_fun = [](GLFWwindow* window, double x, double y) {
+        static_cast<minecraft::Player*>(glfwGetWindowUserPointer(window))->handle_mouse(window, x, y);
+    };
+
+    glfwSetCursorPosCallback(window, _mouse_fun);
 
     // generate projection matrix
     float fov = 70.0f / 180 * (float) M_PI;
@@ -176,7 +186,7 @@ int main(int argc, char** argv){
     glEnable(GL_DEPTH_TEST);
 
     while(!glfwWindowShouldClose(window)) {
-        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        if(glfwGetKey(window, GLFW_KEY_DELETE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, GL_TRUE);
         }
 
@@ -186,6 +196,14 @@ int main(int argc, char** argv){
 
         if(glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS) {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
+        
+        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+
+        if(glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
 
         // player handle inputs
@@ -202,7 +220,7 @@ int main(int argc, char** argv){
         glUniformMatrix4fv(glGetUniformLocation(program.get_program(), "projection"), 1, GL_FALSE, projection.data());
         glUniformMatrix4fv(glGetUniformLocation(program.get_program(), "view"), 1, GL_FALSE, player.generate_view_matrix().data());
         Eigen::Matrix4f identity = Eigen::Matrix4f::Identity();
-        std::cout << player.generate_view_matrix() << "\n";
+        // std::cout << player.generate_view_matrix() << "\n";
         glUniformMatrix4fv(glGetUniformLocation(program.get_program(), "model"), 1, GL_FALSE, identity.data());
 
         glBindVertexArray(vao);
