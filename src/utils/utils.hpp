@@ -59,6 +59,7 @@
 namespace minecraft {
 
 void print_error(std::string text);
+std::string from_GL_error(int error);
 
 std::string slurp(const std::ifstream& in);
 
